@@ -1,11 +1,11 @@
 export async function extractMediaInfo(url) {
     try {
-        // Use the global axios from the CDN
-        const response = await window.axios.post('https://n3h0ab5vbqes0qz583z8.c.websim.ai/api/extract', { url });
+        // Use axios from the window object
+        const response = await window.axios.post('/api/extract', { url });
         
         return {
-            title: response.data.title,
-            thumbnail: response.data.thumbnail,
+            title: response.data.title || 'Título não disponível',
+            thumbnail: response.data.thumbnail || '',
             qualities: response.data.availableQualities || ['720p', '480p', '360p']
         };
     } catch (error) {

@@ -14,11 +14,14 @@ class QuickDownloader {
         const downloadButton = document.getElementById('downloadButton');
         const resultSection = document.getElementById('resultSection');
 
+        // Configure Axios to use the current origin
+        window.axios.defaults.baseURL = window.location.origin;
+
         fetchButton.addEventListener('click', async () => {
             const url = urlInput.value.trim();
             
             if (!validateURL(url)) {
-                alert('URL inválida. Por favor, insira uma URL de plataforma suportada.');
+                this.showAlert('URL inválida. Por favor, insira uma URL de plataforma suportada.');
                 return;
             }
 
@@ -28,13 +31,13 @@ class QuickDownloader {
                 resultSection.classList.remove('hidden');
             } catch (error) {
                 console.error('Erro ao buscar informações de mídia:', error);
-                alert('Não foi possível processar a URL. Verifique a URL e tente novamente.');
+                this.showAlert('Não foi possível processar a URL. Verifique a URL e tente novamente.');
             }
         });
 
         downloadButton.addEventListener('click', async () => {
             if (!this.mediaInfo) {
-                alert('Por favor, primeiro busque uma URL válida.');
+                this.showAlert('Por favor, primeiro busque uma URL válida.');
                 return;
             }
 
@@ -51,9 +54,22 @@ class QuickDownloader {
                 await downloadMedia(downloadOptions);
             } catch (error) {
                 console.error('Erro no download:', error);
-                alert('Falha no download. Tente novamente.');
+                this.showAlert('Falha no download. Tente novamente.');
             }
         });
+    }
+
+    showAlert(message) {
+        // Create a more user-friendly alert
+        const alertContainer = document.createElement('div');
+        alertContainer.classList.add('alert');
+        alertContainer.textContent = message;
+        
+        document.body.appendChild(alertContainer);
+        
+        setTimeout(() => {
+            alertContainer.remove();
+        }, 3000);
     }
 
     displayMediaInfo(mediaInfo) {

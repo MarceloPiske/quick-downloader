@@ -1,22 +1,19 @@
 export async function downloadMedia(options) {
     try {
-        const response = await fetch('https://n3h0ab5vbqes0qz583z8.c.websim.ai/api/extract', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(options)
+        // Use axios from the window object
+        const response = await window.axios.post('/api/download', options, {
+            responseType: 'blob'
         });
 
-        if (!response.ok) {
-            throw new Error('Falha no download');
-        }
-
-        const blob = await response.blob();
+        const blob = response.data;
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `downloaded_media.${options.format}`;
+        
+        // Generate a more meaningful filename
+        const suggestedFilename = `downloaded_media_${options.quality}.${options.format}`;
+        a.download = suggestedFilename;
+        
         document.body.appendChild(a);
         a.click();
         a.remove();
