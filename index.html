@@ -1,0 +1,111 @@
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickDownloader - Baixe Vídeos e Áudios Online</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo-container">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="logo">
+                    <circle cx="50" cy="50" r="45" fill="#4a90e2"/>
+                    <path d="M30 35 L70 50 L30 65 Z" fill="white"/>
+                </svg>
+                <h1>QuickDownloader</h1>
+            </div>
+            <p>Baixe vídeos e áudios de qualquer plataforma</p>
+        </header>
+
+        <main>
+            <div class="download-section">
+                <div class="input-group">
+                    <input 
+                        type="text" 
+                        id="urlInput" 
+                        placeholder="Cole a URL do vídeo/áudio aqui" 
+                        required
+                    >
+                    <button id="fetchButton">
+                        <i class="bi bi-search"></i> Buscar
+                    </button>
+                </div>
+            </div>
+
+            <div id="resultSection" class="result-section hidden">
+                <div class="media-preview">
+                    <img id="thumbnailImage" src="" alt="Miniatura">
+                    <h3 id="mediaTitle"></h3>
+                </div>
+
+                <div class="download-options">
+                    <div class="option-group">
+                        <label for="qualitySelect">
+                            <i class="bi bi-display"></i> Qualidade
+                        </label>
+                        <select id="qualitySelect">
+                            <!-- Options serão populadas dinamicamente -->
+                        </select>
+                    </div>
+
+                    <div class="option-group">
+                        <label for="formatSelect">
+                            <i class="bi bi-file-earmark-music"></i> Formato
+                        </label>
+                        <select id="formatSelect">
+                            <option value="mp4">Vídeo (MP4)</option>
+                            <option value="mp3">Áudio (MP3)</option>
+                        </select>
+                    </div>
+
+                    <button id="downloadButton">
+                        <i class="bi bi-download"></i> Baixar
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <div class="supported-platforms">
+            <h3>Plataformas Suportadas</h3>
+            <div class="platform-logos">
+                <div class="platform-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FF0000">
+                        <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.492 8.549 4.385 8.816 3.6.246 11.626.245 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.492-8.549-4.385-8.816zm-10.615 12.816v-8l8 4-8 4z"/>
+                    </svg>
+                    <span>YouTube</span>
+                </div>
+                <div class="platform-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#1AB7EA">
+                        <path d="M22.396 7c-.49-2.27-2.179-4.066-4.25-4.562C13.558 2.022 12 2 12 2s-1.558.022-6.146 0.438C3.783 2.934 2.094 4.73 1.604 7 1.204 9.031 1 11.34 1 12s0.204 2.969 0.604 4.969c0.49 2.27 2.179 4.066 4.25 4.562C10.442 21.978 12 22 12 22s1.558-.022 6.146-.438c2.071-.496 3.76-2.292 4.25-4.562C22.796 14.969 23 12.66 23 12S22.796 9.031 22.396 7zM10 15V9l5.201 3L10 15z"/>
+                    </svg>
+                    <span>Vimeo</span>
+                </div>
+                <div class="platform-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FF5500">
+                        <path d="M7.02 7.98c0 1.96 1.59 3.55 3.55 3.55s3.55-1.59 3.55-3.55-1.59-3.55-3.55-3.55-3.55 1.59-3.55 3.55zm4.72 0c0 .65-.53 1.18-1.18 1.18S9.38 8.63 9.38 7.98s.53-1.18 1.18-1.18 1.18.53 1.18 1.18zm2.29 5.99c0-1.96-1.59-3.55-3.55-3.55s-3.55 1.59-3.55 3.55 1.59 3.55 3.55 3.55 3.55-1.59 3.55-3.55zm-4.72 0c0-.65.53-1.18 1.18-1.18s1.18.53 1.18 1.18-.53 1.18-1.18 1.18-1.18-.53-1.18-1.18z"/>
+                        <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm0 22c-5.514 0-10-4.486-10-10s4.486-10 10-10 10 4.486 10 10-4.486 10-10 10z"/>
+                    </svg>
+                    <span>SoundCloud</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p> 2024 QuickDownloader. Todos os direitos reservados.</p>
+        <div class="footer-links">
+            <a href="https://github.com/yourproject" target="_blank">
+                <i class="bi bi-github"></i> GitHub
+            </a>
+            <a href="https://yourwebsite.com/support" target="_blank">
+                <i class="bi bi-question-circle"></i> Ajuda
+            </a>
+        </div>
+    </footer>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>
