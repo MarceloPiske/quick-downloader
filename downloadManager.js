@@ -1,6 +1,6 @@
 export async function downloadMedia(options) {
     try {
-        const response = await fetch('/api/download', {
+        const response = await fetch('https://n3h0ab5vbqes0qz583z8.c.websim.ai/api/extract', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
